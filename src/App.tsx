@@ -22,7 +22,7 @@ export default function App() {
     try {
       const res = await Promise.all(
         endpoints.map((endpoint) =>
-          axios.get(`http://localhost:8000${endpoint}`)
+          axios.get(`https://ct-server-drab.vercel.app${endpoint}`)
         )
       );
 
