@@ -1,6 +1,10 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
+import axios from "axios";
+
+// Types
 import { CustomerProps, ICustomers, ITransaction } from "./types/types";
+
+// Components
 import ReceiptLongIcon from "@mui/icons-material/ReceiptLong";
 import {
   BarChartComponent,
@@ -12,12 +16,13 @@ import { Typography } from "@mui/material";
 
 const ENDPOINTS = ["/customers", "/transactions"];
 export default function App() {
-  const [filter, setFilter] = useState("");
-  const [customer, setCustomer] = useState<ICustomers>();
-  const [isLoading, setIsLoading] = useState(true);
-  const [transactions, setTransactions] = useState<ITransaction[]>([]);
-  const [customers, setCustomers] = useState<Map<number, string>>();
-  const [open, setOpen] = useState(false);
+  const [filter, setFilter] = useState(""); // Filter data based on name or amount
+  const [customer, setCustomer] = useState<ICustomers>(); // customer's name and transaction history in bar chart
+  const [isLoading, setIsLoading] = useState(true); // Loading state
+  const [transactions, setTransactions] = useState<ITransaction[]>([]); // Customer's transaction table
+  const [customers, setCustomers] = useState<Map<number, string>>(); // Customers list
+  const [open, setOpen] = useState(false); // Modal state
+
   async function getCustomers(endpoints: string[]) {
     try {
       const res = await Promise.all(
@@ -45,14 +50,9 @@ export default function App() {
     }
   }
 
-  useEffect(() => {
-    if (!transactions?.length) {
-      getCustomers(ENDPOINTS);
-    }
-  }, []);
-
   function getTransactionHistory(customerId: number) {
     setOpen(true);
+
     if (customerId === customer?.id) return;
 
     let customerName = customers?.get(customerId)!;
@@ -68,10 +68,16 @@ export default function App() {
     });
   }
 
+  useEffect(() => {
+    if (!transactions?.length) {
+      getCustomers(ENDPOINTS);
+    }
+  }, []);
+
   if (isLoading) return <Loader />;
 
   return (
-    <div>
+    <>
       <Typography
         variant="h1"
         sx={{
@@ -90,7 +96,7 @@ export default function App() {
         }}
       >
         <ReceiptLongIcon />
-        Customer Transactions
+        Customers Transactions
         <ReceiptLongIcon />
       </Typography>
       <Filter filter={filter} setFilter={setFilter} />
@@ -106,6 +112,6 @@ export default function App() {
         open={open}
         setOpen={setOpen}
       />
-    </div>
+    </>
   );
 }

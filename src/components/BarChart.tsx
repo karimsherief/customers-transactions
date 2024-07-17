@@ -1,7 +1,5 @@
-import { Dispatch, SetStateAction } from "react";
-
 // Types
-import { ITransaction } from "../types/types";
+import { ChartProps } from "../types/types";
 
 //Components
 
@@ -15,17 +13,10 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
-
 import Modal from "@mui/material/Modal";
-
 import Box from "@mui/material/Box";
+import { Typography } from "@mui/material";
 
-type ChartProps = {
-  transactions: Partial<ITransaction>[];
-  customerName: string;
-  open: boolean;
-  setOpen: Dispatch<SetStateAction<boolean>>;
-};
 export default function BarChartComponent({
   transactions,
   customerName,
@@ -51,9 +42,15 @@ export default function BarChartComponent({
           textAlign: "center",
           marginInline: "20px",
           outline: "none",
+          padding: "10px",
         }}
       >
-        <h3>{customerName}</h3>
+        <Typography
+          variant="h5"
+          sx={{ marginBlock: "10px", fontWeight: "bold" }}
+        >
+          {customerName}
+        </Typography>
         <ResponsiveContainer className="chart">
           <BarChart data={data}>
             <CartesianGrid strokeDasharray="3 3" />

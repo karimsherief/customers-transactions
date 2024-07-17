@@ -1,5 +1,10 @@
-import { ITransaction } from "../types/types";
+// Types
+import { CustomersTableProps, ITransaction } from "../types/types";
+
+// Functions
 import { formatCurrency } from "../utils/FormatCurrency";
+
+// Components
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -7,17 +12,10 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-type CustomersTableProps = {
-  transactions: ITransaction[];
-  customers: Map<number, string>;
-  filter: string;
-  getTransactionHistory: (id: number) => void;
-};
 
 export default function CustomersTable({
   transactions,
   filter,
-
   customers,
   getTransactionHistory,
 }: CustomersTableProps) {
@@ -27,6 +25,7 @@ export default function CustomersTable({
 
     return +aDate - +bDate;
   }
+  
   return (
     <TableContainer
       component={Paper}

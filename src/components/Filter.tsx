@@ -1,14 +1,12 @@
+// Components
 import InputLabel from "@mui/material/InputLabel";
-
 import FormControl from "@mui/material/FormControl";
-
 import SearchIcon from "@mui/icons-material/Search";
 import { Box, Input, InputAdornment } from "@mui/material";
 
-type filterProps = {
-  filter: string;
-  setFilter: React.Dispatch<React.SetStateAction<string>>;
-};
+// Types
+import { filterProps } from "../types/types";
+
 export default function Filter({ filter, setFilter }: filterProps) {
   return (
     <Box
